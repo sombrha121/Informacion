@@ -1,4 +1,75 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema Médico - Laravel
+
+Sistema completo de gestión médica desarrollado en Laravel 11.
+
+## 📋 Características
+
+- ✅ Gestión de Pacientes
+- ✅ Gestión de Personal Médico
+- ✅ Consultas Médicas
+- ✅ Exámenes de Laboratorio
+- ✅ Tratamientos
+- ✅ Compras e Inventario
+- ✅ Reportes y Estadísticas
+- ✅ Sistema de Autenticación
+
+## 🚀 Instalación y Configuración
+
+### Requisitos
+- Laragon con PHP 8.3+ y MySQL
+- Composer
+
+### Pasos para Iniciar el Proyecto
+
+1. **Crear Base de Datos**
+   - Abrir HeidiSQL (en Laragon)
+   - Crear base de datos: `sistema_medico`
+
+2. **Generar Clave de Aplicación**
+```powershell
+cd c:\laragon\www\Prototipo
+php artisan key:generate
+```
+
+3. **Ejecutar Migraciones**
+```powershell
+php artisan migrate
+```
+
+4. **Cargar Datos de Prueba**
+```powershell
+php artisan db:seed
+```
+
+5. **Iniciar Servidor**
+```powershell
+php artisan serve
+```
+
+O acceder directamente desde Laragon: `http://prototipo.test`
+
+## 👤 Credenciales de Acceso
+
+**Administrador**
+- Email: admin@sistema.com
+- Password: admin123
+
+**Doctor**
+- Email: doctor@sistema.com
+- Password: doctor123
+
+## 📦 Módulos del Sistema
+
+1. **Pacientes** - Registro y gestión de pacientes
+2. **Consultas** - Programación y seguimiento de consultas médicas
+3. **Exámenes** - Solicitud y registro de exámenes de laboratorio
+4. **Tratamientos** - Planes de tratamiento y medicamentos
+5. **Compras** - Gestión de compras e inventario
+6. **Personal** - Administración de personal médico
+7. **Reportes** - Estadísticas e informes del sistema
+
+---
+**Laravel 11** • Bootstrap 5 • MySQL
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
