@@ -45,6 +45,9 @@
                                     <a href="{{ route('compras.show', $compra) }}" class="btn btn-sm btn-info">
                                         <i class="bi bi-eye"></i>
                                     </a>
+                                    <a href="{{ route('compras.comprobante', $compra) }}" class="btn btn-sm btn-success" target="_blank" title="Comprobante">
+                                        <i class="bi bi-receipt"></i>
+                                    </a>
                                     <a href="{{ route('compras.edit', $compra) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil"></i>
                                     </a>

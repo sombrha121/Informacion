@@ -85,9 +85,14 @@
             <a href="{{ route('compras.index') }}" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Volver
             </a>
-            <a href="{{ route('compras.edit', $compra) }}" class="btn btn-warning">
-                <i class="bi bi-pencil"></i> Editar
-            </a>
+            <div class="btn-group">
+                <a href="{{ route('compras.comprobante', $compra) }}" class="btn btn-outline-success" target="_blank">
+                    <i class="bi bi-receipt"></i> Comprobante
+                </a>
+                <a href="{{ route('compras.edit', $compra) }}" class="btn btn-warning">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+            </div>
         </div>
     </div>
 </div>

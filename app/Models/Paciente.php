@@ -14,6 +14,7 @@ class Paciente extends Model
         'apellido',
         'dni',
         'fecha_nacimiento',
+        'meses_vida',
         'genero',
         'telefono',
         'email',
@@ -57,6 +58,12 @@ class Paciente extends Model
     // Accesor para edad
     public function getEdadAttribute()
     {
+        // Si tiene meses_vida registrados (recién nacido), retornar ese valor
+        if ($this->meses_vida !== null) {
+            return $this->meses_vida . ' mes' . ($this->meses_vida !== 1 ? 'es' : '');
+        }
+        
+        // Si es mayor de 1 año, retornar la edad en años
         return $this->fecha_nacimiento->age;
     }
 }

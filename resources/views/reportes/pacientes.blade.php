@@ -87,7 +87,13 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center text-muted">No hay pacientes que mostrar</td>
+                            <td colspan="9" class="text-center text-muted py-4">
+                                @if(request('buscar') || request('estado'))
+                                    <i class="bi bi-search"></i> No se encontraron pacientes que coincidan con los criterios de búsqueda
+                                @else
+                                    No hay pacientes registrados
+                                @endif
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -95,9 +101,16 @@
         </div>
 
         <div class="mt-3">
-            <p class="text-muted">
-                <strong>Total:</strong> {{ $pacientes->count() }} pacientes registrados
-            </p>
+            @if($pacientes->count() > 0)
+                <p class="text-muted">
+                    <strong>Total:</strong> {{ $pacientes->count() }} 
+                    @if(request('buscar') || request('estado'))
+                        pacientes encontrados
+                    @else
+                        pacientes registrados
+                    @endif
+                </p>
+            @endif
         </div>
     </div>
 </div>

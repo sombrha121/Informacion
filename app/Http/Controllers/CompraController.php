@@ -74,6 +74,12 @@ class CompraController extends Controller
         return view('compras.show', compact('compra'));
     }
 
+    public function comprobante(Compra $compra)
+    {
+        $compra->load(['realizadoPor', 'detalles']);
+        return view('compras.comprobante', compact('compra'));
+    }
+
     public function edit(Compra $compra)
     {
         $compra->load('detalles');

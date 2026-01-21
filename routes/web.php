@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
     
     // Compras
     Route::resource('compras', CompraController::class);
+        // Compras
+        Route::get('compras/{compra}/comprobante', [CompraController::class, 'comprobante'])->name('compras.comprobante');
     
     // Personal
     Route::resource('personal', PersonalController::class);

@@ -46,9 +46,27 @@ class ReporteController extends Controller
         ));
     }
 
-    public function pacientes()
+    public function pacientes(Request $request)
     {
-        $pacientes = Paciente::withCount(['consultas', 'examenes', 'tratamientos'])->get();
+        $query = Paciente::withCount(['consultas', 'examenes', 'tratamientos']);
+
+        // Filtro de búsqueda por nombre o DNI
+        if ($request->filled('buscar')) {
+            $buscar = $request->buscar;
+            $query->where(function($q) use ($buscar) {
+                $q->where('nombre', 'like', "%{$buscar}%")
+                  ->orWhere('apellido', 'like', "%{$buscar}%")
+                  ->orWhere('dni', 'like', "%{$buscar}%");
+            });
+        }
+
+        // Filtro por estado
+        if ($request->filled('estado')) {
+            $query->where('estado', $request->estado);
+        }
+
+        $pacientes = $query->get();
+        
         return view('reportes.pacientes', compact('pacientes'));
     }
 

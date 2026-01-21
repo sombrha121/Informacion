@@ -98,7 +98,8 @@
                     <div class="mb-3">
                         <label for="fecha_inicio" class="form-label">Fecha de Inicio *</label>
                         <input type="date" class="form-control @error('fecha_inicio') is-invalid @enderror" 
-                               id="fecha_inicio" name="fecha_inicio" value="{{ old('fecha_inicio', now()->format('Y-m-d')) }}" required>
+                               id="fecha_inicio" name="fecha_inicio" value="{{ old('fecha_inicio', now()->format('Y-m-d')) }}" 
+                               min="{{ now()->format('Y-m-d') }}" required>
                         @error('fecha_inicio')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
@@ -107,7 +108,8 @@
                     <div class="mb-3">
                         <label for="fecha_fin" class="form-label">Fecha de Fin (Estimada)</label>
                         <input type="date" class="form-control @error('fecha_fin') is-invalid @enderror" 
-                               id="fecha_fin" name="fecha_fin" value="{{ old('fecha_fin') }}">
+                               id="fecha_fin" name="fecha_fin" value="{{ old('fecha_fin') }}"
+                               min="{{ now()->format('Y-m-d') }}" onchange="updateMinFechaFin()">
                         @error('fecha_fin')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
@@ -144,4 +146,29 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function updateMinFechaFin() {
+    const fechaInicio = document.getElementById('fecha_inicio').value;
+    const fechaFin = document.getElementById('fecha_fin');
+    
+    if (fechaInicio) {
+        fechaFin.setAttribute('min', fechaInicio);
+        
+        // Si la fecha_fin es anterior a la fecha_inicio, limpiarla
+        if (fechaFin.value && fechaFin.value < fechaInicio) {
+            fechaFin.value = fechaInicio;
+        }
+    }
+}
+
+// Ejecutar al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    const fechaInicio = document.getElementById('fecha_inicio');
+    fechaInicio.addEventListener('change', updateMinFechaFin);
+    updateMinFechaFin();
+});
+</script>
+@endpush
 @endsection

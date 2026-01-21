@@ -42,12 +42,24 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="mb-3">
                         <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento *</label>
                         <input type="date" class="form-control @error('fecha_nacimiento') is-invalid @enderror" 
                                id="fecha_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" required>
                         @error('fecha_nacimiento')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="meses_vida" class="form-label">Meses (Recién Nacido)</label>
+                        <input type="number" class="form-control @error('meses_vida') is-invalid @enderror" 
+                               id="meses_vida" name="meses_vida" min="0" max="11" 
+                               value="{{ old('meses_vida') }}" 
+                               placeholder="0-11">
+                        <small class="form-text text-muted">Solo si es menor de 1 año</small>
+                        @error('meses_vida')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
 

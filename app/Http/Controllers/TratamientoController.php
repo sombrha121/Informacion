@@ -34,10 +34,13 @@ class TratamientoController extends Controller
             'descripcion' => 'required|string',
             'medicamentos' => 'nullable|string',
             'indicaciones' => 'nullable|string',
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'nullable|date',
+            'fecha_inicio' => 'required|date|date_format:Y-m-d|after_or_equal:today',
+            'fecha_fin' => 'nullable|date|date_format:Y-m-d|after_or_equal:fecha_inicio',
             'estado' => 'required|in:Pendiente,En Proceso,Completado,Cancelado',
             'costo' => 'required|numeric|min:0',
+        ], [
+            'fecha_inicio.after_or_equal' => 'La fecha de inicio no puede ser anterior a hoy',
+            'fecha_fin.after_or_equal' => 'La fecha de fin debe ser igual o posterior a la fecha de inicio',
         ]);
 
         Tratamiento::create($validated);
@@ -69,10 +72,13 @@ class TratamientoController extends Controller
             'descripcion' => 'required|string',
             'medicamentos' => 'nullable|string',
             'indicaciones' => 'nullable|string',
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'nullable|date',
+            'fecha_inicio' => 'required|date|date_format:Y-m-d|after_or_equal:today',
+            'fecha_fin' => 'nullable|date|date_format:Y-m-d|after_or_equal:fecha_inicio',
             'estado' => 'required|in:Pendiente,En Proceso,Completado,Cancelado',
             'costo' => 'required|numeric|min:0',
+        ], [
+            'fecha_inicio.after_or_equal' => 'La fecha de inicio no puede ser anterior a hoy',
+            'fecha_fin.after_or_equal' => 'La fecha de fin debe ser igual o posterior a la fecha de inicio',
         ]);
 
         $tratamiento->update($validated);
