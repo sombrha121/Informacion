@@ -17,6 +17,26 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ecf0f1;
+            overflow-x: hidden;
+        }
+
+        /* Solucionar problemas con flechas flotantes o elementos grandes no deseados */
+        body > *:not(.container-fluid) {
+            display: none !important;
+        }
+
+        body > svg {
+            display: none !important;
+        }
+
+        .container-fluid {
+            display: block !important;
+        }
+
+        /* Limpiar pseudoelementos problemáticos */
+        .pagination::before,
+        .pagination::after {
+            content: none !important;
         }
 
         .sidebar {
@@ -145,6 +165,13 @@
         [style*="display:none"],
         .d-none {
             display: none !important;
+        }
+
+        /* Asegurar que los iconos dentro de la navegación sean visibles */
+        .sidebar .bi,
+        .btn .bi,
+        .nav-link .bi {
+            display: inline !important;
         }
     </style>
     @stack('styles')
