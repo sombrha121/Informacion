@@ -88,6 +88,24 @@
 
         .main-content {
             padding: 30px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .col-md-2.sidebar {
+                min-height: auto;
+            }
+            
+            .col-md-10.main-content {
+                padding: 15px;
+            }
+            
+            .sidebar .nav-link {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
         }
 
         .stat-card {
@@ -101,6 +119,32 @@
         .badge {
             padding: 5px 10px;
             font-size: 0.85rem;
+        }
+
+        /* Estilos para paginación */
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .pagination .page-link {
+            color: var(--secondary-color);
+            border-color: #ddd;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .pagination .page-link:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Ocultar elementos no deseados */
+        .hidden-element,
+        [style*="display:none"],
+        .d-none {
+            display: none !important;
         }
     </style>
     @stack('styles')
