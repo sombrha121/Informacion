@@ -10,6 +10,7 @@ use App\Http\Controllers\CompraController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AIAssistantController;
 
 // Rutas de autenticación
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('home');
@@ -59,6 +60,12 @@ Route::middleware('auth')->group(function () {
     
     // Historial del paciente
     Route::get('historial/{paciente}', [PacienteController::class, 'show'])->name('historial.show');
+    
+    // Asistente IA
+    Route::get('/ia-asistente', [AIAssistantController::class, 'index'])->name('ia.index');
+    Route::post('/ia-consultar', [AIAssistantController::class, 'consultar'])->name('ia.consultar');
+    Route::post('/ia-buscar', [AIAssistantController::class, 'buscar'])->name('ia.buscar');
+    Route::post('/ia-informe', [AIAssistantController::class, 'generarInforme'])->name('ia.informe');
 });
 
 // Rutas API (sin autenticación por ahora, agregar si se necesita)
