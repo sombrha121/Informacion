@@ -45,6 +45,17 @@ php artisan db:seed
 ```powershell
 php artisan serve
 ```
+6.  **otro metodo mediatne la terminal**
+   ```powershell
+   copy .env.example .env
+composer install
+php artisan key:generate
+php artisan migrate --force
+php artisan db:seed --force
+npm install
+npm run build
+php artisan serve  
+```
 
 O acceder directamente desde Laragon: `http://prototipo.test`
 
