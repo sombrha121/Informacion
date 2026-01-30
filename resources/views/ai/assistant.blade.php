@@ -46,9 +46,22 @@
                                         <div class="mb-2">
                                             <label for="tipoConsulta" class="form-label small fw-bold">Tipo de Consulta:</label>
                                             <select class="form-select form-select-sm" id="tipoConsulta">
-                                                <option value="pregunta">❓ Pregunta General</option>
-                                                <option value="sintomas">🏥 Analizar Síntomas</option>
-                                                <option value="diagnostico">💊 Sugerir Tratamiento</option>
+                                                <optgroup label="Consultas Generales">
+                                                    <option value="pregunta">❓ Pregunta General</option>
+                                                    <option value="sintomas">🏥 Analizar Síntomas</option>
+                                                    <option value="diagnostico">💊 Sugerir Tratamiento</option>
+                                                </optgroup>
+                                                <optgroup label="Consultas del Sistema">
+                                                    <option value="pacientes">👥 Consultar Pacientes</option>
+                                                    <option value="consultas">🩺 Consultar Consultas Médicas</option>
+                                                    <option value="examenes">🔬 Consultar Exámenes</option>
+                                                    <option value="tratamientos">💉 Consultar Tratamientos</option>
+                                                    <option value="compras">📦 Consultar Compras</option>
+                                                    <option value="personal">👨‍⚕️ Consultar Personal</option>
+                                                </optgroup>
+                                                <optgroup label="Reportes">
+                                                    <option value="reporte">📊 Generar Reporte General</option>
+                                                </optgroup>
                                             </select>
                                         </div>
 
@@ -102,10 +115,10 @@
                                 <div class="card-body small">
                                     <ul class="mb-0">
                                         <li>✓ Sé específico en tus consultas</li>
-                                        <li>✓ El asistente es informativo</li>
-                                        <li>✓ No reemplaza médicos reales</li>
-                                        <li>✓ Usa para análisis preliminares</li>
-                                        <li>✓ Consulta a profesionales siempre</li>
+                                        <li>✓ El asistente detecta intenciones</li>
+                                        <li>✓ Te redirige automáticamente</li>
+                                        <li>✓ Usa para análisis y navegación</li>
+                                        <li>✓ Prueba pedir "crear paciente"</li>
                                     </ul>
                                 </div>
                             </div>
@@ -113,20 +126,28 @@
                             <!-- Ejemplos -->
                             <div class="card border-light">
                                 <div class="card-header bg-light">
-                                    <h6 class="mb-0">📝 Ejemplos</h6>
+                                    <h6 class="mb-0">📝 Ejemplos con Redirección</h6>
                                 </div>
                                 <div class="card-body small">
                                     <div class="mb-2">
-                                        <strong>Pregunta:</strong><br>
-                                        <em>"¿Cuáles son los síntomas de la gripe?"</em>
+                                        <strong>👤 Paciente:</strong><br>
+                                        <em>"Quiero crear una ficha de paciente"</em><br>
+                                        <span class="text-success">→ Te lleva a /pacientes</span>
                                     </div>
                                     <div class="mb-2">
-                                        <strong>Síntoma:</strong><br>
-                                        <em>"Tengo fiebre, tos y dolor de garganta"</em>
+                                        <strong>🩺 Consulta:</strong><br>
+                                        <em>"Necesito agendar una cita"</em><br>
+                                        <span class="text-success">→ Te lleva a /consultas</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <strong>🔬 Examen:</strong><br>
+                                        <em>"Solicitar análisis de sangre"</em><br>
+                                        <span class="text-success">→ Te lleva a /examenes</span>
                                     </div>
                                     <div>
-                                        <strong>Tratamiento:</strong><br>
-                                        <em>"Para la migraña crónica"</em>
+                                        <strong>👨‍⚕️ Personal:</strong><br>
+                                        <em>"¿Qué médicos hay disponibles?"</em><br>
+                                        <span class="text-success">→ Te lleva a /personal</span>
                                     </div>
                                 </div>
                             </div>
@@ -245,10 +266,28 @@
                 const divIA = document.createElement('div');
                 divIA.className = 'mensaje-ia';
                 divIA.innerHTML = `
-                    ${escapeHtml(data.respuesta)}
+                    ${escapeHtml(data.respuesta).replace(/\n/g, '<br>')}
                     <div class="mensaje-hora">${new Date().toLocaleTimeString()}</div>
                 `;
                 container.appendChild(divIA);
+                
+                // Si hay redirección, mostrar botón y redirigir automáticamente
+                if (data.redirigir && data.url) {
+                    const divRedireccion = document.createElement('div');
+                    divRedireccion.className = 'alert alert-success mt-3';
+                    divRedireccion.innerHTML = `
+                        <strong>🔄 Redirigiendo...</strong><br>
+                        <a href="${data.url}" class="btn btn-success mt-2">
+                            <i class="bi bi-arrow-right-circle"></i> Ir a ${data.modulo.charAt(0).toUpperCase() + data.modulo.slice(1)}
+                        </a>
+                    `;
+                    container.appendChild(divRedireccion);
+                    
+                    // Redirigir automáticamente después de 3 segundos
+                    setTimeout(() => {
+                        window.location.href = data.url;
+                    }, 3000);
+                }
             } else {
                 mostrarError(data.error || 'Error desconocido');
             }

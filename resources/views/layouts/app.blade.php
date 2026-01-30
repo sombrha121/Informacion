@@ -209,6 +209,9 @@
                     <a class="nav-link {{ request()->routeIs('reportes.*') ? 'active' : '' }}" href="{{ route('reportes.index') }}">
                         <i class="bi bi-graph-up"></i> Reportes
                     </a>
+                    <a class="nav-link {{ request()->routeIs('ia.*') ? 'active' : '' }}" href="{{ route('ia.index') }}">
+                        <i class="bi bi-robot"></i> Asistente IA
+                    </a>
                     <hr style="border-color: rgba(255,255,255,0.2)">
                     <form method="POST" action="{{ route('logout') }}" class="px-3">
                         @csrf

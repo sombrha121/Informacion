@@ -29,22 +29,44 @@ class AIAssistantController extends Controller
     {
         $request->validate([
             'mensaje' => 'required|string|max:1000',
-            'tipo' => 'required|in:pregunta,sintomas,diagnostico'
+            'tipo' => 'required|in:pregunta,sintomas,diagnostico,pacientes,consultas,examenes,tratamientos,compras,personal,reporte'
         ]);
 
         $mensaje = $request->input('mensaje');
         $tipo = $request->input('tipo');
 
         try {
+            // Primero detectar si hay intención de redirección
+            $intencion = $this->aiService->detectarIntencion($mensaje);
+            
+            if ($intencion) {
+                return response()->json([
+                    'exito' => true,
+                    'redirigir' => true,
+                    'url' => $intencion['url'],
+                    'respuesta' => $intencion['mensaje'],
+                    'modulo' => $intencion['modulo']
+                ]);
+            }
+            
+            // Si no hay redirección, procesar normalmente
             $respuesta = match($tipo) {
                 'pregunta' => $this->aiService->responderPregunta($mensaje),
                 'sintomas' => $this->aiService->analizarSintomas($mensaje),
                 'diagnostico' => $this->aiService->sugerirTratamiento($mensaje),
+                'pacientes' => $this->aiService->consultarPacientes($mensaje),
+                'consultas' => $this->aiService->consultarConsultas($mensaje),
+                'examenes' => $this->aiService->consultarExamenes($mensaje),
+                'tratamientos' => $this->aiService->consultarTratamientos($mensaje),
+                'compras' => $this->aiService->consultarCompras($mensaje),
+                'personal' => $this->aiService->consultarPersonal($mensaje),
+                'reporte' => $this->aiService->generarReporteGeneral(),
                 default => 'Tipo de consulta no válido'
             };
 
             return response()->json([
                 'exito' => true,
+                'redirigir' => false,
                 'respuesta' => $respuesta,
                 'tipo' => $tipo
             ]);
